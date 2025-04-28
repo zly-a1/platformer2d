@@ -1,0 +1,72 @@
+extends Node2D
+class_name World
+@onready var background = $Background
+@onready var map = $map
+@onready var camera_2d = $player/PalyerCamera
+@onready var player: Player = $player
+
+
+
+
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	GameProcesser.fix_camera.connect(func():
+		camera_2d.reset_smoothing()
+		camera_2d.force_update_scroll()
+		)
+	var tilesize=map.tile_set.tile_size.x
+	var mappos=map.get_used_rect().position*tilesize
+	var mapsize=map.get_used_rect().size*tilesize
+	background.size=mapsize
+	background.position=mappos
+	camera_2d.limit_left=background.position.x
+	camera_2d.limit_top=background.position.y
+	camera_2d.limit_right=background.position.x+background.size.x
+	camera_2d.limit_bottom=background.position.y+background.size.y
+	SoundManager.setup_ui_sounds(self)
+	player.status.health=GameProcesser.player_status.health
+	player.status.energy=GameProcesser.player_status.energy
+
+func _input(event):
+	pass
+
+func packdata() -> Dictionary:
+	var enemies_data:={}
+	for enemy:Enemy in get_tree().get_nodes_in_group("enemies"):
+		enemies_data[enemy.get_path()]={
+			"health":enemy.status.health,
+			"position":enemy.global_position,
+			"direction":enemy.direction
+		}
+	var platform_data:={}
+	for platform:Platform in get_tree().get_nodes_in_group("platforms"):
+		platform_data[platform.get_path()]={
+			"position":platform.global_position,
+			"velocity":platform.v
+		}
+		
+	return {
+		"player_position":player.global_position,
+		"player_direction":player.direction,
+		"player_state":player.state_machine.current_state,
+		"enemies":enemies_data,
+		"platforms":platform_data
+	}
+
+func setup_scene(data:Dictionary):
+	for enemy:Enemy in get_tree().get_nodes_in_group("enemies"):
+		
+		if enemy.get_path() not in data["enemies"]:
+			enemy.queue_free()
+			continue
+		enemy.status.health=data["enemies"][enemy.get_path()]["health"]
+		enemy.global_position=data["enemies"][enemy.get_path()]["position"]
+		enemy.direction=data["enemies"][enemy.get_path()]["direction"]
+	for platform:NodePath in data["platforms"]:
+		var plat:=get_node(platform) as Platform
+		plat.set_stats(data["platforms"][platform]["velocity"],data["platforms"][platform]["position"])
+	player.global_position=data["player_position"]
+	player.direction=data["player_direction"]
+	player.state_machine.current_state=data["player_state"]
