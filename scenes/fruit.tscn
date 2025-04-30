@@ -133,7 +133,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_5awxm"]
 radius = 7.0
 
-[node name="Fruit" type="CharacterBody2D"]
+[node name="Fruit" type="CharacterBody2D" groups=["fruits"]]
 collision_layer = 64
 script = ExtResource("1_yvtr8")
 

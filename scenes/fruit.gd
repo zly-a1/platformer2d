@@ -1,4 +1,10 @@
 extends CharacterBody2D
+class_name Fruit
+enum FruitType{
+	HEALTH,
+	ENERGY
+}
+@export var type:FruitType=FruitType.HEALTH
 
 var tween_started:bool=false
 

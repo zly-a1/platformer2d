@@ -29,7 +29,7 @@ window/size/viewport_width=1024
 window/size/transparent=true
 window/size/extend_to_title=true
 window/subwindows/embed_subwindows=false
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/per_pixel_transparency/allowed=true
 
@@ -42,6 +42,7 @@ import/blender/enabled=false
 enemies=""
 player=""
 platforms=""
+fruits=""
 
 [input]
 
@@ -87,6 +88,7 @@ jump={
 2d_physics/layer_5="bullet"
 2d_physics/layer_6="portal"
 2d_physics/layer_7="fruit"
+2d_physics/layer_8="checkpoint"
 
 [rendering]
 

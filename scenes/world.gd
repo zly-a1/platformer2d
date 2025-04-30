@@ -46,13 +46,19 @@ func packdata() -> Dictionary:
 			"position":platform.global_position,
 			"velocity":platform.v
 		}
+	var fruit_data:={}
+	for fruit:Fruit in get_tree().get_nodes_in_group("fruits"):
+		fruit_data[fruit.get_path()]={
+			"type":fruit.type
+		}
 		
 	return {
 		"player_position":player.global_position,
 		"player_direction":player.direction,
 		"player_state":player.state_machine.current_state,
 		"enemies":enemies_data,
-		"platforms":platform_data
+		"platforms":platform_data,
+		"fruits":fruit_data
 	}
 
 func setup_scene(data:Dictionary):
@@ -67,6 +73,11 @@ func setup_scene(data:Dictionary):
 	for platform:NodePath in data["platforms"]:
 		var plat:=get_node(platform) as Platform
 		plat.set_stats(data["platforms"][platform]["velocity"],data["platforms"][platform]["position"])
+	for fruit:Fruit in get_tree().get_nodes_in_group("fruits"):
+		if fruit.get_path() not in data["fruits"]:
+			fruit.queue_free()
+			continue
+		fruit.type=data["fruits"][fruit.get_path()]["type"]
 	player.global_position=data["player_position"]
 	player.direction=data["player_direction"]
 	player.state_machine.current_state=data["player_state"]

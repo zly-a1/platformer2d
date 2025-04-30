@@ -52,7 +52,6 @@ func _on_resume_pressed():
 
 func _on_quit_pressed():
 	close_panel()
-	GameProcesser.save_game()
 	GameProcesser.back_to_title()
 	pass # Replace with function body.
 

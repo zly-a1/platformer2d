@@ -223,7 +223,7 @@ func get_next_state(state:State) ->State:
 	if Input.is_action_just_pressed("attack"):
 		hitter.monitoring=true
 		return State.ATTACK
-	if Input.is_action_just_pressed("flash") and status.energy>=50 and not is_on_wall():
+	if Input.is_action_just_pressed("flash") and status.energy>=30 and not is_on_wall():
 		return State.FLASH
 	return state
 
@@ -271,7 +271,7 @@ func change_state(from:State,to:State)->void:
 		
 			set_collision_layer_value(2,false)
 			energy_delta=status.energy
-			status.energy-=50
+			status.energy-=30
 			if status.energy<0:
 				status.energy=0
 			energy_delta-=status.energy
@@ -337,4 +337,4 @@ func flash_stop():
 	velocity.x=0
 
 func _ready() -> void:
-	super_time.start()
+	pass
