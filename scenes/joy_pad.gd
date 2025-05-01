@@ -9,9 +9,11 @@ var fg_idx:int=-1
 var finger_offset:Vector2
 
 func _ready() -> void:
-	#$Control.scale=get_viewport().size/1024
-	#$Control2.scale=get_viewport().size/1024
-	#$Control4.scale=get_viewport().size/1024
+	var sc=get_viewport_rect().size.y/648*1.2
+	print(sc)
+	$Control.scale=Vector2(sc,sc)
+	$Control2.scale=Vector2(sc,sc)
+	$Control4.scale=Vector2(sc,sc)
 	pass
 
 func _input(event: InputEvent) -> void:
