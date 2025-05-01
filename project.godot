@@ -12,11 +12,11 @@ config_version=5
 
 config/name="platform"
 run/main_scene="uid://dj0b7cwm84d7y"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://kid.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 boot_splash/image="uid://du5vdewp6a23c"
-config/icon="res://kid.png"
 
 [autoload]
 
@@ -29,7 +29,7 @@ window/size/viewport_width=1024
 window/size/transparent=true
 window/size/extend_to_title=true
 window/subwindows/embed_subwindows=false
-window/stretch/mode="viewport"
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/per_pixel_transparency/allowed=true
 

@@ -8,6 +8,12 @@ extends Control
 var fg_idx:int=-1
 var finger_offset:Vector2
 
+func _ready() -> void:
+	#$Control.scale=get_viewport().size/1024
+	#$Control2.scale=get_viewport().size/1024
+	#$Control4.scale=get_viewport().size/1024
+	pass
+
 func _input(event: InputEvent) -> void:
 	var sd=event as InputEventScreenDrag
 	if sd and sd.index==fg_idx:

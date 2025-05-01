@@ -17,7 +17,8 @@ var current_scene:String="grass"
 
 const SceneFile:Dictionary={
 	"grass":"res://scenes/grass.tscn",
-	"purple":"res://scenes/purple.tscn"
+	"purple":"res://scenes/purple.tscn",
+	"skyland":"res://scenes/skyland.tscn"
 }
 
 signal camera_shock(amount:float)
