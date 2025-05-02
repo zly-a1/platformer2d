@@ -52,7 +52,7 @@ enum Direction{
 		graphics.scale.x=direction
 
 const GROUND_STATES :=[State.IDLE,State.RUN]
-const SPEED = 250.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 const GROUND_ACCELERATIION = 1500
 const AIR_ACCELERATION = 2000
@@ -62,8 +62,6 @@ var gravity =900
 var damage:bool = false
 var energy_delta:float=0
 
-var can_hurt:bool=false
-
 
 func tick_physics(state:State,delta:float)->void:
 	if state!=State.DYING:
@@ -71,16 +69,7 @@ func tick_physics(state:State,delta:float)->void:
 		graphics.modulate.g=1
 		graphics.modulate.b=1
 		if not super_time.is_stopped():
-			can_hurt=false
-			hurter.monitorable=false	
 			graphics.modulate.a=sin(Time.get_ticks_msec()/40)*0.5+0.5
-			set_collision_layer_value(2,false)
-		else:
-			can_hurt=true
-			graphics.modulate.a=1
-			if state!=State.FLASH:
-				hurter.monitorable=true
-				set_collision_layer_value(2,true)
 				
 	
 	
@@ -202,11 +191,8 @@ func get_next_state(state:State) ->State:
 			hurter.monitorable=false
 			if not animation_player.is_playing() or is_on_wall():
 				
-				graphics.modulate.a=1
-				graphics.modulate.r=1
-				graphics.modulate.g=1
-				graphics.modulate.b=1
-				set_collision_layer_value(2,true)
+				graphics.modulate=Color(1,1,1,1)
+				$Graphics/Hurter/CollisionShape2D.disabled=false
 				velocity.x=0
 				hurter.monitorable=true
 				return State.IDLE
@@ -254,7 +240,7 @@ func change_state(from:State,to:State)->void:
 				coyote.start()
 		State.WALL_JUMP:
 			animation_player.play("walljump")
-			
+			direction=-get_wall_normal().x as int
 			
 		State.HURT:
 			damage=true
@@ -268,8 +254,6 @@ func change_state(from:State,to:State)->void:
 			animation_player.play("attack")
 			SoundManager.play_sfx("Attack")
 		State.FLASH:
-		
-			set_collision_layer_value(2,false)
 			energy_delta=status.energy
 			status.energy-=30
 			if status.energy<0:
@@ -292,15 +276,15 @@ func _input(event):
 
 
 func _on_hurter_hurt(hitter):
-	if can_hurt:
-		if status.health>0:
-			status.health-=1
+	if not super_time.is_stopped():
+		return
+	if status.health>0:
+		status.health-=1
 		damage=true
-		can_hurt=false
 		super_time.start()
 		var hit_ter:CharacterBody2D=hitter.owner
 		velocity=(-velocity).normalized()*700.0 if not(is_zero_approx(velocity.x) and is_zero_approx(velocity.x)) else (position-hit_ter.position).normalized()*700.0
-	
+		
 func die():
 	died.emit()
 	game_over_panel.show_panel()
@@ -308,11 +292,10 @@ func die():
 
 
 func _on_spike_entered(body):
-	if can_hurt and not body is Enemy:
+	if not body is Enemy and super_time.is_stopped():
 		if status.health>0:
 			status.health-=1
 		damage=true
-		can_hurt=false
 		super_time.start()
 		var hit_ter:Node2D=body
 		velocity=(-velocity).normalized()*700.0 if not(is_zero_approx(velocity.x) and is_zero_approx(velocity.x)) else (position-hit_ter.position).normalized()*700.0
@@ -337,4 +320,9 @@ func flash_stop():
 	velocity.x=0
 
 func _ready() -> void:
-	pass
+	$Graphics/Hurter/CollisionShape2D.disabled=false
+
+func _on_super_time_timeout() -> void:
+	graphics.modulate.a=1
+	$Graphics/Hurter/CollisionShape2D.disabled=false
+	pass # Replace with function body.

@@ -26,3 +26,8 @@ func _process(delta):
 		
 		bar_2.value=move_toward(bar_2.value,bar_2.max_value/status.max_energy*status.energy,50*delta)
 	
+
+	var sc=get_viewport_rect().size.y/648*2.5
+	scale=Vector2(sc,sc)
+	pass
+	
