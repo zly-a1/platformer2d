@@ -48,31 +48,6 @@ target_world = "res://scenes/grass.tscn"
 position = Vector2(704, 672)
 target_world = "res://scenes/skyland.tscn"
 
-[node name="player" parent="." instance=ExtResource("5_amdbo")]
-position = Vector2(80.5642, 88.8858)
-
-[node name="PalyerCamera" type="Camera2D" parent="player"]
-zoom = Vector2(2.1, 2.1)
-limit_left = 80
-limit_top = 80
-limit_right = 1008
-limit_bottom = 592
-limit_smoothed = true
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.5
-drag_top_margin = 0.5
-drag_right_margin = 0.5
-drag_bottom_margin = 0.5
-editor_draw_drag_margin = true
-script = ExtResource("6_pnq56")
-
-[node name="PointLight2D" type="PointLight2D" parent="player"]
-energy = 0.7
-texture = SubResource("GradientTexture2D_cuora")
-texture_scale = 1.95
-
 [node name="Boar" parent="." instance=ExtResource("7_cuora")]
 position = Vector2(124.507, 221.603)
 
@@ -136,3 +111,28 @@ position = Vector2(109, 96)
 
 [node name="SavePoint2" parent="." instance=ExtResource("2_v0v38")]
 position = Vector2(734, 688)
+
+[node name="player" parent="." instance=ExtResource("5_amdbo")]
+position = Vector2(80.5642, 88.8858)
+
+[node name="PlayerCamera" type="Camera2D" parent="player"]
+zoom = Vector2(2.1, 2.1)
+limit_left = 80
+limit_top = 80
+limit_right = 1008
+limit_bottom = 592
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+editor_draw_drag_margin = true
+script = ExtResource("6_pnq56")
+
+[node name="PointLight2D" type="PointLight2D" parent="player"]
+energy = 0.7
+texture = SubResource("GradientTexture2D_cuora")
+texture_scale = 1.95

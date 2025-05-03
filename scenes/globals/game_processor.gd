@@ -28,7 +28,7 @@ func _ready():
 	save_config()
 	color_rect.hide()
 	load_config()
-	get_window().min_size=Vector2i(1024,648)
+	#get_window().min_size=Vector2i(1024,648)
 
 func change_scene(path:String):
 	if tween_started:

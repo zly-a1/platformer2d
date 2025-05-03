@@ -2,7 +2,7 @@ extends Node2D
 class_name World
 @onready var background = $Background
 @onready var map = $map
-@onready var camera_2d = $player/PalyerCamera
+@onready var camera_2d = $player/PlayerCamera
 @onready var player: Player = $player
 
 

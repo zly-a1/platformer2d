@@ -1,12 +1,32 @@
 extends Control
 
 
-var fg_idx:int=-1
-var finger_offset:Vector2
+func _ready() -> void:
+	$Control4/TouchScreenButton7.hide()
+	for portal:Portal in get_tree().get_nodes_in_group("portals"):
+		portal.enter.connect(func():
+			$Control4/TouchScreenButton7.show()
+			)
+		portal.exit.connect(func():
+			$Control4/TouchScreenButton7.hide()
+			)
+	for save_point:SavePoint in get_tree().get_nodes_in_group("save_points"):
+		save_point.enter.connect(func():
+			$Control4/TouchScreenButton7.show()
+			)
+		save_point.exit.connect(func():
+			$Control4/TouchScreenButton7.hide()
+			)
+	for child:TouchScreenButton in $Control4.get_children():
+		child.pressed.connect(func():
+			child.modulate.a=0.5
+			)
+		child.released.connect(func():
+			child.modulate.a=1
+			)
 
 func _process(delta:float) -> void:
-	var sc=get_viewport_rect().size.y/648
-	$Control.scale=Vector2(sc,sc)
-	$Control2.scale=Vector2(sc,sc)
-	$Control4.scale=Vector2(sc,sc)
+	var sc=Vector2(get_viewport_rect().size.y/$Control2/TextureRect.size.y,get_viewport_rect().size.y/$Control2/TextureRect.size.y)
+	for child:Control in get_children():
+		child.scale=sc/4
 	pass

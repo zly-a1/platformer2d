@@ -46,7 +46,7 @@ _data = {
 radius = 11.0
 height = 36.0
 
-[node name="Portal" type="Area2D"]
+[node name="Portal" type="Area2D" groups=["portals"]]
 collision_layer = 32
 collision_mask = 2
 script = ExtResource("1_1ffj6")
@@ -63,3 +63,6 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_dyed0")
+
+[connection signal="body_entered" from="." to="." method="_on_player_entered"]
+[connection signal="body_exited" from="." to="." method="_on_player_exited"]

@@ -172,7 +172,7 @@ _data = {
 &"saved": SubResource("Animation_abvb2")
 }
 
-[node name="SavePoint" type="Area2D"]
+[node name="SavePoint" type="Area2D" groups=["save_points"]]
 collision_layer = 128
 collision_mask = 2
 script = ExtResource("1_wiums")
@@ -190,3 +190,6 @@ libraries = {
 position = Vector2(0, -10)
 texture = ExtResource("2_wiums")
 hframes = 9
+
+[connection signal="body_entered" from="." to="." method="_on_player_entered"]
+[connection signal="body_exited" from="." to="." method="_on_player_exited"]
