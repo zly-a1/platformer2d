@@ -4,9 +4,8 @@
 [ext_resource type="Script" uid="uid://ld0x25827d8o" path="res://scenes/slider.gd" id="2_nk2kr"]
 
 [node name="Slider" type="HSlider"]
-offset_right = 158.0
-offset_bottom = 16.0
-scale = Vector2(2, 2)
+offset_right = 172.0
+offset_bottom = 26.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_ndafo")

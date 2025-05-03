@@ -13,8 +13,6 @@ shader_parameter/mix_amount = 0.359
 shader_parameter/alpha = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d6uqa"]
-content_margin_top = 10.0
-content_margin_bottom = 10.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rwpda"]
 content_margin_top = 10.0
@@ -51,10 +49,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -188.0
-offset_top = -126.0
-offset_right = 188.0
-offset_bottom = 126.0
+offset_left = -81.0
+offset_top = -58.0
+offset_right = 81.0
+offset_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_48igd")
@@ -104,6 +102,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_rwpda")
 
 [node name="H" type="HBoxContainer" parent="V/Actions"]
 layout_mode = 2
+theme = ExtResource("3_48igd")
 alignment = 1
 
 [node name="Resume" type="Button" parent="V/Actions/H"]

@@ -12,22 +12,19 @@ func set_status(stat:Status):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-		
+	status.health_changed.connect(update_health)
+	status.energy_changed.connect(update_energy)
 		
 	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if status:
-		bar.value=move_toward(bar.value,bar.max_value/status.max_health*status.health,50*delta)
-		based_bar.value=move_toward(based_bar.value,based_bar.max_value/status.max_health*status.health,25*delta)
-		
-		bar_2.value=move_toward(bar_2.value,bar_2.max_value/status.max_energy*status.energy,50*delta)
-	
-
-	var sc=get_viewport_rect().size.y/648*2.5
-	scale=Vector2(sc,sc)
 	pass
-	
+
+func update_health():
+	bar.value=bar.max_value/status.max_health*status.health
+	create_tween().tween_property(based_bar,"value",bar.value,0.2)
+
+func update_energy():
+	bar_2.value=bar_2.max_value/status.max_energy*status.energy

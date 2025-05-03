@@ -2,10 +2,20 @@ extends Node
 
 class_name Status
 
-@export var health:int=10
+signal health_changed()
+signal energy_changed()
+
+@export var health:int=10:
+	set(v):
+		health=v
+		health_changed.emit()
+		
 @export var max_health:int=10
 
-@export var energy:float =100
+@export var energy:float =100:
+	set(v):
+		energy=v
+		energy_changed.emit()
 @export var max_energy:float =100
 
 

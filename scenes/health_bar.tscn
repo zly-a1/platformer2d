@@ -30,8 +30,8 @@ margin = Rect2(1, 1, 1, 2)
 [node name="StatusBar" type="HBoxContainer"]
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 102.0
-offset_bottom = 33.0
+offset_right = 100.0
+offset_bottom = 31.0
 scale = Vector2(2.5, 2.5)
 script = ExtResource("1_ipgqk")
 

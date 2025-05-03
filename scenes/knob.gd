@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 		if not evt1.index==finger_idx:
 			return
 		var pos=evt1.position-fg_offset
-		var movement:Vector2=(pos-origin_pos).limit_length(60.0)
+		var movement:Vector2=(pos-origin_pos).limit_length(15.0)
 		position=origin_pos+movement
 		
 		movement=movement.normalized()

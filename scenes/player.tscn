@@ -818,15 +818,17 @@ script = ExtResource("10_p053j")
 
 [node name="foreUI" type="CanvasLayer" parent="."]
 
-[node name="JoyPad" parent="foreUI" instance=ExtResource("14_qfm1y")]
-light_mask = 2
-visibility_layer = 2
-
 [node name="StatusBar" parent="foreUI" node_paths=PackedStringArray("status") instance=ExtResource("15_fulsm")]
-offset_top = 20.0
-offset_right = 100.0
-offset_bottom = 35.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 92.0
+offset_bottom = 23.0
+scale = Vector2(1, 1)
 status = NodePath("../../Status")
+
+[node name="JoyPad" parent="foreUI" instance=ExtResource("14_qfm1y")]
+anchors_preset = -1
+metadata/_edit_horizontal_guides_ = [492.0]
 
 [node name="pausepanel" parent="foreUI" instance=ExtResource("16_4r5pv")]
 visible = false
