@@ -18,3 +18,4 @@ script = ExtResource("1_6f5qt")
 position = Vector2(-4, -4)
 texture_normal = SubResource("AtlasTexture_6f5qt")
 shape = SubResource("RectangleShape2D_6f5qt")
+visibility_mode = 1

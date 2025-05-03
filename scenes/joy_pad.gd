@@ -2,6 +2,8 @@ extends Control
 
 
 func _ready() -> void:
+	if not OS.get_name()=="Android":
+		$Control2/TextureRect.hide()
 	$Control4/TouchScreenButton7.hide()
 	for portal:Portal in get_tree().get_nodes_in_group("portals"):
 		portal.enter.connect(func():
@@ -26,7 +28,7 @@ func _ready() -> void:
 			)
 
 func _process(delta:float) -> void:
-	var sc=Vector2(get_viewport_rect().size.y/$Control2/TextureRect.size.y,get_viewport_rect().size.y/$Control2/TextureRect.size.y)
+	var sc=Vector2(get_viewport().size.y/$Control2/TextureRect.size.y,get_viewport().size.y/$Control2/TextureRect.size.y)
 	for child:Control in get_children():
 		child.scale=sc/4
 	pass
