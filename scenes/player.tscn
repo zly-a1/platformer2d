@@ -818,6 +818,13 @@ script = ExtResource("10_p053j")
 
 [node name="foreUI" type="CanvasLayer" parent="."]
 
+[node name="StatusPanel" parent="foreUI" node_paths=PackedStringArray("stats") instance=ExtResource("17_qfm1y")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 34.0
+stats = NodePath("../../Status")
+
 [node name="JoyPad" parent="foreUI" instance=ExtResource("14_qfm1y")]
 anchors_preset = -1
 metadata/_edit_horizontal_guides_ = [492.0]
@@ -827,13 +834,6 @@ visible = false
 
 [node name="GameOverPanel" parent="foreUI" instance=ExtResource("17_60mlk")]
 visible = false
-
-[node name="StatusPanel" parent="foreUI" node_paths=PackedStringArray("stats") instance=ExtResource("17_qfm1y")]
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 34.0
-stats = NodePath("../../Status")
 
 [connection signal="body_entered" from="Graphics/Hurter" to="." method="_on_spike_entered"]
 [connection signal="hurt" from="Graphics/Hurter" to="." method="_on_hurter_hurt"]

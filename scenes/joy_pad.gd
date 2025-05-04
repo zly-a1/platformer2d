@@ -2,8 +2,6 @@ extends Control
 
 
 func _ready() -> void:
-	#if not OS.get_name()=="Android":
-		#$Control2.hide()
 	$Control4/TouchScreenButton7.hide()
 	for portal:Portal in get_tree().get_nodes_in_group("portals"):
 		portal.enter.connect(func():

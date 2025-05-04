@@ -10,16 +10,17 @@
 [ext_resource type="PackedScene" uid="uid://boeicyglvlhvj" path="res://scenes/portal.tscn" id="8_q2ltv"]
 [ext_resource type="PackedScene" uid="uid://bwntdiifnevcj" path="res://scenes/fruit.tscn" id="13_cuora"]
 
-[sub_resource type="Gradient" id="Gradient_pnq56"]
+[sub_resource type="Gradient" id="Gradient_v0v38"]
 interpolation_mode = 2
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_cuora"]
-gradient = SubResource("Gradient_pnq56")
+gradient = SubResource("Gradient_v0v38")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0.9, 0.1)
+fill_to = Vector2(0.875, 0.125)
 metadata/_snap_enabled = true
+metadata/_snap_count = 16
 
 [node name="purple" type="Node2D"]
 script = ExtResource("1_v0v38")
@@ -87,7 +88,7 @@ position = Vector2(887, 770)
 direction = 1
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.226707, 0.226708, 0.226707, 1)
+color = Color(0.32544, 0.325441, 0.32544, 1)
 
 [node name="Fruits" type="Node" parent="."]
 
@@ -110,7 +111,7 @@ position = Vector2(544, 807)
 position = Vector2(109, 96)
 
 [node name="SavePoint2" parent="." instance=ExtResource("2_v0v38")]
-position = Vector2(734, 688)
+position = Vector2(764, 688)
 
 [node name="player" parent="." instance=ExtResource("5_amdbo")]
 position = Vector2(80.5642, 88.8858)

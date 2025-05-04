@@ -1,6 +1,7 @@
 extends Area2D
 class_name SavePoint
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var point_light_2d: PointLight2D = $PointLight2D
 
 signal enter()
 signal exit()
@@ -13,7 +14,6 @@ func _process(delta: float) -> void:
 		animation_player.play("idle")
 	else:
 		animation_player.play("saved")
-		
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("enter") and entering:

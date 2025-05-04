@@ -5,7 +5,11 @@
 [ext_resource type="Theme" uid="uid://dq2k6takiambk" path="res://themes/theme.tres" id="2_27we0"]
 [ext_resource type="Texture2D" uid="uid://cxpo33b0qlsyf" path="res://assets/Menu/HUD.png" id="3_fqsbo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqlg0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_27we0"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncrt1"]
 atlas = ExtResource("1_rqlg0")
@@ -37,12 +41,11 @@ script = ExtResource("1_27we0")
 [node name="AvatarBox" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(26, 26)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_rqlg0")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_27we0")
 
-[node name="Avatar" type="TextureRect" parent="AvatarBox"]
-layout_mode = 2
+[node name="Avatar" type="Sprite2D" parent="AvatarBox"]
+position = Vector2(16, 12)
 texture = SubResource("AtlasTexture_ncrt1")
-stretch_mode = 5
 
 [node name="V" type="VBoxContainer" parent="."]
 layout_mode = 2
