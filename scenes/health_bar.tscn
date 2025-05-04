@@ -1,12 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbdcbey0ou5ys"]
+[gd_scene load_steps=7 format=3 uid="uid://dbdcbey0ou5ys"]
 
 [ext_resource type="Script" uid="uid://vkmm5kl1kf27" path="res://scenes/health_bar.gd" id="1_ipgqk"]
-[ext_resource type="Texture2D" uid="uid://cwqd00sbifdjn" path="res://assets/Main Characters/Virtual Guy/Wall Jump (32x32).png" id="2_6opq1"]
 [ext_resource type="Texture2D" uid="uid://cxpo33b0qlsyf" path="res://assets/Menu/HUD.png" id="2_vcbdh"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tujlf"]
-atlas = ExtResource("2_6opq1")
-region = Rect2(4, 6, 22, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pimuh"]
 atlas = ExtResource("2_vcbdh")
@@ -37,7 +32,6 @@ script = ExtResource("1_ipgqk")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
-texture = SubResource("AtlasTexture_tujlf")
 stretch_mode = 3
 flip_h = true
 
@@ -47,6 +41,7 @@ size_flags_vertical = 4
 theme_override_constants/separation = 1
 
 [node name="Bar" type="TextureProgressBar" parent="VBoxContainer"]
+show_behind_parent = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
@@ -54,11 +49,10 @@ step = 0.01
 value = 100.0
 texture_under = SubResource("AtlasTexture_pimuh")
 texture_progress = SubResource("AtlasTexture_ymwft")
-texture_progress_offset = Vector2(0, 0.2)
 
 [node name="BasedBar" type="TextureProgressBar" parent="VBoxContainer/Bar"]
 show_behind_parent = true
-layout_mode = 2
+layout_mode = 1
 offset_right = 58.0
 offset_bottom = 6.0
 size_flags_horizontal = 2

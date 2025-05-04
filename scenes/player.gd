@@ -29,7 +29,7 @@ signal died()
 
 @onready var hurter = $Graphics/Hurter
 @onready var joy_pad: Control = $foreUI/JoyPad
-@onready var status_bar: HealthBar = $foreUI/StatusBar
+@onready var status_bar: = $foreUI/StatusPanel
 @onready var pausepanel: PausePanel = $foreUI/pausepanel
 @onready var game_over_panel: Control = $foreUI/GameOverPanel
 
