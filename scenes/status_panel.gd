@@ -20,6 +20,10 @@ func _ready() -> void:
 		stats.health_changed.disconnect(update_health)
 		stats.energy_changed.disconnect(update_energy)
 	)
+@warning_ignore("unused_parameter")
+func _process(delta: float) -> void:
+	pass
+	
 
 
 func update_health(skip_anim := false) -> void:

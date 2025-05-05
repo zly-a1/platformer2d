@@ -25,6 +25,7 @@ signal died()
 @onready var graphics = $Graphics
 @onready var status:Status = $Status
 @onready var hitter = $Graphics/Hitter
+@onready var animation_player_2: AnimationPlayer = $AnimationPlayer2
 
 
 @onready var hurter = $Graphics/Hurter
@@ -321,6 +322,20 @@ func flash_stop():
 
 func _ready() -> void:
 	$Graphics/Hurter/CollisionShape2D.disabled=false
+	for portal:Portal in get_tree().get_nodes_in_group("portals"):
+		portal.enter.connect(func():
+			animation_player_2.play("show")
+			)
+		portal.exit.connect(func():
+			animation_player_2.play("RESET")
+			)
+	for save_point:SavePoint in get_tree().get_nodes_in_group("save_points"):
+		save_point.enter.connect(func():
+			animation_player_2.play("show")
+			)
+		save_point.exit.connect(func():
+			animation_player_2.play("RESET")
+			)
 
 func _on_super_time_timeout() -> void:
 	graphics.modulate.a=1

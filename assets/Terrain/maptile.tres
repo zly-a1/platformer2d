@@ -1,7 +1,10 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://b8n62pqdhsqkn"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://b8n62pqdhsqkn"]
 
 [ext_resource type="Texture2D" uid="uid://dmhlwlidarvd2" path="res://assets/Terrain/Terrain (16x16).png" id="1_613ta"]
 [ext_resource type="Texture2D" uid="uid://ccpyh21gwb7pk" path="res://assets/Traps/Spikes/Idle.png" id="2_h3xn7"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_613ta"]
+tile_data = PackedInt32Array(65536, 1, 1073741824, 1, 1, 268435456, 65537, 393216, 6, 131073, 1, 805306368, 65538, 1, 1342177280)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y2jnh"]
 texture = ExtResource("1_613ta")
@@ -380,3 +383,4 @@ terrain_set_0/terrain_2/name = "skyland"
 terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_y2jnh")
 sources/1 = SubResource("TileSetAtlasSource_w70li")
+pattern_0 = SubResource("TileMapPattern_613ta")

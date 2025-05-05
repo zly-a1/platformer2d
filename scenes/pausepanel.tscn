@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://b5b4i8vmd46mu" path="res://scenes/pausepanel.gd" id="1_atgni"]
 [ext_resource type="Theme" uid="uid://dq2k6takiambk" path="res://themes/theme.tres" id="3_48igd"]
-[ext_resource type="Shader" uid="uid://ls13bb20e1tm" path="res://shaders/blur.tres" id="3_d6uqa"]
+[ext_resource type="Shader" uid="uid://dijf0k5wkr4kg" path="res://shaders/blur.gdshader" id="3_d6uqa"]
 [ext_resource type="PackedScene" uid="uid://dh4kgtq4yf48j" path="res://scenes/slider.tscn" id="3_dh7wr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rwpda"]
 shader = ExtResource("3_d6uqa")
-shader_parameter/blur_amount = 2.0
+shader_parameter/blur_amount = 2.5
+shader_parameter/mix_amount = 0.5
 shader_parameter/color_over = Color(0, 0, 0, 1)
-shader_parameter/mix_amount = 0.359
-shader_parameter/alpha = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d6uqa"]
 

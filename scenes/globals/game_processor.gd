@@ -25,7 +25,6 @@ signal camera_shock(amount:float)
 
 func _ready():
 	load_data()
-	save_config()
 	color_rect.hide()
 	load_config()
 	#get_window().min_size=Vector2i(1024,648)
@@ -54,7 +53,6 @@ func save_config():
 	
 	file.set_value("Audio","master",SoundManager.get_volume(SoundManager.Bus.MASTER))
 	file.set_value("Audio","sfx",SoundManager.get_volume(SoundManager.Bus.SFX))
-	
 	file.save(CONFIG_PATH)
 	
 func load_config():

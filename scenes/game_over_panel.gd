@@ -5,8 +5,9 @@ extends Control
 
 
 # Called when the node enters the scene tree for the first time.
-func _init():
+func _ready() -> void:
 	modulate.a=0
+	hide()
 	
 
 func _input(event):
