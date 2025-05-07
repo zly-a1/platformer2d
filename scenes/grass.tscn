@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bt3tunsvdmw0"]
+[gd_scene load_steps=10 format=3 uid="uid://bt3tunsvdmw0"]
 
 [ext_resource type="Script" uid="uid://bhqr6pwfeta0c" path="res://scenes/grass.gd" id="1_u7wuo"]
 [ext_resource type="PackedScene" uid="uid://boeicyglvlhvj" path="res://scenes/portal.tscn" id="5_h00y4"]
@@ -8,68 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://csemktnsxtjp" path="res://scenes/player.tscn" id="8_esugc"]
 [ext_resource type="Script" uid="uid://bjm75opqrpty" path="res://scenes/PalyerCamera.gd" id="9_j6x2i"]
 [ext_resource type="PackedScene" uid="uid://dskfgefbsxmba" path="res://scenes/save_point.tscn" id="9_sj11k"]
-[ext_resource type="Theme" uid="uid://dq2k6takiambk" path="res://themes/theme.tres" id="10_u7wuo"]
 [ext_resource type="PackedScene" uid="uid://bwntdiifnevcj" path="res://scenes/fruit.tscn" id="14_neahd"]
-
-[sub_resource type="Animation" id="Animation_u7wuo"]
-resource_name = "show"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_characters")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0, 7]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_kog0m"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:visible_characters")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Label:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_esugc"]
-_data = {
-&"RESET": SubResource("Animation_kog0m"),
-&"show": SubResource("Animation_u7wuo")
-}
 
 [node name="grass" type="Node2D"]
 script = ExtResource("1_u7wuo")
@@ -184,16 +123,3 @@ drag_bottom_margin = 0.3
 editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("9_j6x2i")
-
-[node name="Label" type="Label" parent="."]
-offset_left = 182.0
-offset_top = 455.0
-offset_right = 252.0
-offset_bottom = 478.0
-theme = ExtResource("10_u7wuo")
-visible_characters = 0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_esugc")
-}

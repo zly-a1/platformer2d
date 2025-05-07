@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://na6pmn81dsbs"]
+
+[ext_resource type="Theme" uid="uid://dq2k6takiambk" path="res://themes/theme.tres" id="1_56cw5"]
+[ext_resource type="Script" uid="uid://biqinrx6r2q22" path="res://scenes/introduce_ui.gd" id="1_tbksr"]
+
+[node name="IntroduceUI" type="CanvasLayer"]
+process_mode = 3
+process_priority = 1
+layer = 2
+script = ExtResource("1_tbksr")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 243.0
+offset_top = 12.0
+offset_right = 313.0
+offset_bottom = 35.0
+theme = ExtResource("1_56cw5")
+metadata/_edit_use_anchors_ = true
