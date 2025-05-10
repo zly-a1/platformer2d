@@ -25,10 +25,6 @@ func _ready():
 func show_panel():
 	if GameProcesser.tween_started:
 		return
-	if get_parent().has_node("IntroduceUI"):
-		var intro = get_parent().get_node("IntroduceUI")
-		if intro.current_line<5:
-			return
 	GameProcesser.stop_game()
 	show()
 func close_panel():

@@ -1,5 +1,4 @@
 extends CharacterBody2D
-class_name Player
 
 enum State{
 	IDLE,
@@ -8,12 +7,19 @@ enum State{
 	FALL,
 	WALL_JUMP,
 	HURT,
-	DYING,
 	ATTACK,
 	FLASH
 }
+var key_map:Dictionary={
+	"move":true,
+	"jump":false,
+	"attack":false,
+	"flash":false,
+	"shoot":false,
+	"esc":false,
+}
 
-signal died()
+
 
 @onready var sprite_2d = $Graphics/Sprite2D
 @onready var animation_player = $AnimationPlayer
@@ -21,16 +27,13 @@ signal died()
 @onready var state_machine:StateMachine = $StateMachine
 @onready var super_time = $SuperTime
 @onready var graphics = $Graphics
-@onready var status:Status = $Status
 @onready var hitter = $Graphics/Hitter
 @onready var animation_player_2: AnimationPlayer = $AnimationPlayer2
 
 
 @onready var hurter = $Graphics/Hurter
 @onready var joy_pad: Control = $foreUI/JoyPad
-@onready var status_bar: = $foreUI/StatusPanel
 @onready var pausepanel: PausePanel = $foreUI/pausepanel
-@onready var game_over_panel: Control = $foreUI/GameOverPanel
 
 
 
@@ -59,16 +62,14 @@ const FLASH_SPEED=750
 
 var gravity =900
 var damage:bool = false
-var energy_delta:float=0
 
 
 func tick_physics(state:State,delta:float)->void:
-	if state!=State.DYING:
-		graphics.modulate.r=1
-		graphics.modulate.g=1
-		graphics.modulate.b=1
-		if not super_time.is_stopped():
-			graphics.modulate.a=sin(Time.get_ticks_msec()/40)*0.5+0.5
+	graphics.modulate.r=1
+	graphics.modulate.g=1
+	graphics.modulate.b=1
+	if not super_time.is_stopped():
+		graphics.modulate.a=sin(Time.get_ticks_msec()/40)*0.5+0.5
 				
 	
 	
@@ -96,10 +97,6 @@ func tick_physics(state:State,delta:float)->void:
 		State.HURT:
 			
 			move(gravity,delta)
-		State.DYING:
-			velocity.x=0
-			velocity.y=0
-			move(0.0,delta)
 		State.ATTACK:
 			move(gravity,delta)
 		State.FLASH:
@@ -114,7 +111,7 @@ func move(vy:float,delta:float):
 	var dire=Input.get_axis("ui_left","ui_right") if state_machine.current_state!=State.FLASH else direction
 	var acceleration: =GROUND_ACCELERATIION if is_on_floor() else AIR_ACCELERATION
 	velocity.y += vy * delta
-	velocity.x=move_toward(velocity.x,dire*SPEED,acceleration*delta) if state_machine.current_state!=State.DYING else 0.0
+	velocity.x=move_toward(velocity.x,dire*SPEED,acceleration*delta)
 	
 	if not is_zero_approx(dire):
 		direction=Direction.LEFT if dire<0 else Direction.RIGHT
@@ -127,11 +124,9 @@ func move(vy:float,delta:float):
 
 
 func get_next_state(state:State) ->State:
-	if status.health<=0:
-		return State.DYING
 	
 	var can_jump:bool=is_on_floor() or (coyote.time_left > 0)
-	var should_jump=can_jump and Input.is_action_just_pressed("jump")
+	var should_jump=can_jump and Input.is_action_just_pressed("jump") and key_map["jump"]
 	
 	
 	
@@ -168,7 +163,7 @@ func get_next_state(state:State) ->State:
 				return State.IDLE if is_still else State.RUN
 			
 		State.WALL_JUMP:
-			if Input.is_action_just_pressed("jump"):
+			if Input.is_action_just_pressed("jump") and key_map["jump"]:
 				return State.JUMP
 			if not is_on_wall_only():
 				if is_on_floor():
@@ -180,8 +175,6 @@ func get_next_state(state:State) ->State:
 			damage=false
 			if not animation_player.is_playing():
 				return State.IDLE
-		State.DYING:
-			pass
 		State.ATTACK:
 			if not animation_player.is_playing():
 				hitter.monitoring=false
@@ -205,10 +198,10 @@ func get_next_state(state:State) ->State:
 	if super_time.is_stopped():
 		hurter.monitorable=true
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and key_map["attack"]:
 		hitter.monitoring=true
 		return State.ATTACK
-	if Input.is_action_just_pressed("flash") and status.energy>=30 and not is_on_wall():
+	if Input.is_action_just_pressed("flash") and not is_on_wall() and key_map["flash"]:
 		return State.FLASH
 	return state
 
@@ -246,18 +239,10 @@ func change_state(from:State,to:State)->void:
 			animation_player.play("hurt")
 			SoundManager.play_sfx("Hurt")
 			GameProcesser.shake_camera(5.0)
-		State.DYING:
-			animation_player.play("dying")
-			GameProcesser.shake_camera(5.0)
 		State.ATTACK:
 			animation_player.play("attack")
 			SoundManager.play_sfx("Attack")
 		State.FLASH:
-			energy_delta=status.energy
-			status.energy-=30
-			if status.energy<0:
-				status.energy=0
-			energy_delta-=status.energy
 			animation_player.play("flash")
 			SoundManager.play_sfx("Flash")
 	pass
@@ -266,9 +251,9 @@ func _process(delta):
 	pass
 
 func _input(event:InputEvent)->void:
-	if event.is_action_pressed("shoot") and status.energy>=10 and state_machine.current_state!=State.WALL_JUMP:
+	if event.is_action_pressed("shoot") and key_map["shoot"] and state_machine.current_state!=State.WALL_JUMP:
 		shoot()
-	if event.is_action_pressed("ui_cancel") and pausepanel.can_show:
+	if event.is_action_pressed("ui_cancel") and key_map["esc"] and pausepanel.can_show:
 		pausepanel.show_panel()
 	
 
@@ -277,33 +262,24 @@ func _input(event:InputEvent)->void:
 func _on_hurter_hurt(hitter):
 	if not super_time.is_stopped():
 		return
-	if status.health>0:
-		status.health-=1
-		damage=true
-		super_time.start()
-		var hit_ter:CharacterBody2D=hitter.owner
-		velocity=(-velocity).normalized()*700.0 if not(is_zero_approx(velocity.x) and is_zero_approx(velocity.x)) else (position-hit_ter.position).normalized()*700.0
+	
+	damage=true
+	super_time.start()
+	var hit_ter:CharacterBody2D=hitter.owner
+	velocity=(-velocity).normalized()*700.0 if not(is_zero_approx(velocity.x) and is_zero_approx(velocity.x)) else (position-hit_ter.position).normalized()*700.0
 		
-func die():
-	died.emit()
-	game_over_panel.show_panel()
-	set_process(false)
+
 
 
 func _on_spike_entered(body):
 	if not body is Enemy and super_time.is_stopped():
-		if status.health>0:
-			status.health-=1
 		damage=true
 		super_time.start()
 		var hit_ter:Node2D=body
 		velocity=(-velocity).normalized()*700.0 if not(is_zero_approx(velocity.x) and is_zero_approx(velocity.x)) else (position-hit_ter.position).normalized()*700.0
+			
 
 func shoot():
-	var ene_sub:=move_toward(status.energy,0.0,10)
-	if ene_sub<=0:
-		return
-	status.energy=ene_sub
 	var bullet:=preload("res://scenes/bullet.tscn").instantiate()
 		
 	bullet.velocity.x=direction*bullet.SPEED
@@ -320,20 +296,6 @@ func flash_stop():
 
 func _ready() -> void:
 	$Graphics/Hurter/CollisionShape2D.disabled=false
-	for portal:Portal in get_tree().get_nodes_in_group("portals"):
-		portal.enter.connect(func():
-			animation_player_2.play("show")
-			)
-		portal.exit.connect(func():
-			animation_player_2.play("RESET")
-			)
-	for save_point:SavePoint in get_tree().get_nodes_in_group("save_points"):
-		save_point.enter.connect(func():
-			animation_player_2.play("show")
-			)
-		save_point.exit.connect(func():
-			animation_player_2.play("RESET")
-			)
 
 func _on_super_time_timeout() -> void:
 	graphics.modulate.a=1

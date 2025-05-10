@@ -16,6 +16,6 @@ func _process(delta: float) -> void:
 		tween_started=true
 		player.status.health+=1
 		var tween=create_tween()
-		tween.tween_property($AnimatedSprite2D,"modulate:a",0.0,0.2)
+		tween.tween_property($AnimatedSprite2D,"scale",Vector2(0.0,0.0),0.2)
 		await tween.finished
 		queue_free()
