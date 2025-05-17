@@ -20,6 +20,7 @@ func _ready() -> void:
 		stats.health_changed.disconnect(update_health)
 		stats.energy_changed.disconnect(update_energy)
 	)
+	
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	pass
@@ -28,7 +29,15 @@ func _process(delta: float) -> void:
 
 func update_health(skip_anim := false) -> void:
 	var percentage := stats.health / float(stats.max_health)
+	if percentage < health_bar.value:
+		$AvatarBox.modulate.g=0.5
+		$AvatarBox.modulate.b=0.5
+		get_tree().create_timer(0.3).timeout.connect(func():
+			$AvatarBox.modulate.g=1
+			$AvatarBox.modulate.b=1	
+			)
 	health_bar.value = percentage
+	
 	
 	if skip_anim:
 		eased_health_bar.value = percentage

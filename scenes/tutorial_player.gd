@@ -296,6 +296,7 @@ func flash_stop():
 
 func _ready() -> void:
 	$Graphics/Hurter/CollisionShape2D.disabled=false
+	$foreUI/JoyPad/Control4/TouchScreenButton7.show()
 
 func _on_super_time_timeout() -> void:
 	graphics.modulate.a=1

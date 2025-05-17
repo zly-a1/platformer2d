@@ -858,7 +858,6 @@ region_rect = Rect2(0, 0, 352, 32)
 [node name="Hurter" type="Area2D" parent="Graphics"]
 collision_layer = 2
 collision_mask = 12
-monitorable = false
 script = ExtResource("9_gcno4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Graphics/Hurter"]
@@ -867,7 +866,6 @@ shape = SubResource("RectangleShape2D_qwvj0")
 [node name="Hitter" type="Area2D" parent="Graphics"]
 collision_layer = 2
 collision_mask = 4
-monitoring = false
 monitorable = false
 script = ExtResource("4_pg4o4")
 
@@ -895,6 +893,10 @@ one_shot = true
 
 [node name="SuperTime" type="Timer" parent="."]
 wait_time = 4.0
+one_shot = true
+
+[node name="AttackTime" type="Timer" parent="."]
+wait_time = 0.6
 one_shot = true
 
 [node name="Status" type="Node" parent="."]
@@ -934,3 +936,4 @@ visible = false
 [connection signal="body_entered" from="Graphics/Hurter" to="." method="_on_spike_entered"]
 [connection signal="hurt" from="Graphics/Hurter" to="." method="_on_hurter_hurt"]
 [connection signal="timeout" from="SuperTime" to="." method="_on_super_time_timeout"]
+[connection signal="timeout" from="AttackTime" to="." method="_on_attack_time_timeout"]

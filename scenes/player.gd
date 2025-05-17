@@ -31,6 +31,7 @@ signal died()
 @onready var status_bar: = $foreUI/StatusPanel
 @onready var pausepanel: PausePanel = $foreUI/pausepanel
 @onready var game_over_panel: Control = $foreUI/GameOverPanel
+@onready var attack_time: Timer = $AttackTime
 
 
 
@@ -69,8 +70,6 @@ func tick_physics(state:State,delta:float)->void:
 		graphics.modulate.b=1
 		if not super_time.is_stopped():
 			graphics.modulate.a=sin(Time.get_ticks_msec()/40)*0.5+0.5
-				
-	
 	
 	match state:
 		State.IDLE:
@@ -184,29 +183,23 @@ func get_next_state(state:State) ->State:
 			pass
 		State.ATTACK:
 			if not animation_player.is_playing():
-				hitter.monitoring=false
+				$Graphics/Hitter/CollisionShape2D.disabled=true
 				return State.IDLE
 		State.FLASH:
-			hurter.monitorable=false
 			if not animation_player.is_playing() or is_on_wall():
 				
 				graphics.modulate=Color(1,1,1,1)
 				$Graphics/Hurter/CollisionShape2D.disabled=false
 				velocity.x=0
-				hurter.monitorable=true
 				return State.IDLE
+			return State.FLASH
 	
 	if damage:
-		if hitter.monitoring:
-			hitter.monitoring=false
 		return State.HURT
 	if should_jump:
 		return State.JUMP
-	if super_time.is_stopped():
-		hurter.monitorable=true
 	
-	if Input.is_action_just_pressed("attack"):
-		hitter.monitoring=true
+	if Input.is_action_just_pressed("attack") and state_machine.current_state!=State.FLASH:
 		return State.ATTACK
 	if Input.is_action_just_pressed("flash") and status.energy>=30 and not is_on_wall():
 		return State.FLASH
@@ -250,6 +243,8 @@ func change_state(from:State,to:State)->void:
 			animation_player.play("dying")
 			GameProcesser.shake_camera(5.0)
 		State.ATTACK:
+			attack_time.start()
+			print("attacking")
 			animation_player.play("attack")
 			SoundManager.play_sfx("Attack")
 		State.FLASH:
@@ -338,4 +333,9 @@ func _ready() -> void:
 func _on_super_time_timeout() -> void:
 	graphics.modulate.a=1
 	$Graphics/Hurter/CollisionShape2D.disabled=false
+	pass # Replace with function body.
+
+
+func _on_attack_time_timeout() -> void:
+	$Graphics/Hitter/CollisionShape2D.disabled=true
 	pass # Replace with function body.
