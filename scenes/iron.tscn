@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://b7m65baxj1dk"]
+
+[ext_resource type="Script" uid="uid://ownv3en2ryui" path="res://scenes/iron.gd" id="1_dttaf"]
+[ext_resource type="PackedScene" uid="uid://boeicyglvlhvj" path="res://scenes/portal.tscn" id="2_0jca8"]
+[ext_resource type="PackedScene" uid="uid://dskfgefbsxmba" path="res://scenes/save_point.tscn" id="3_txt7i"]
+[ext_resource type="Texture2D" uid="uid://c71fx4vh3k6bl" path="res://assets/Background/Gray.png" id="4_txt7i"]
+[ext_resource type="TileSet" uid="uid://b8n62pqdhsqkn" path="res://assets/Terrain/maptile.tres" id="5_4hkna"]
+[ext_resource type="PackedScene" uid="uid://csemktnsxtjp" path="res://scenes/player.tscn" id="6_tp2bq"]
+[ext_resource type="Script" uid="uid://bjm75opqrpty" path="res://scenes/PlayerCamera.gd" id="7_l4csm"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l4csm"]
+
+[node name="iron" type="Node2D"]
+script = ExtResource("1_dttaf")
+
+[node name="Portals" type="Node" parent="."]
+
+[node name="Portal" parent="Portals" instance=ExtResource("2_0jca8")]
+position = Vector2(47, 125)
+target_world = "res://scenes/skyland.tscn"
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Fruits" type="Node" parent="."]
+
+[node name="SavePoints" type="Node" parent="."]
+
+[node name="SavePoint" parent="SavePoints" instance=ExtResource("3_txt7i")]
+position = Vector2(146, 144)
+
+[node name="Background" type="TextureRect" parent="."]
+z_index = -1
+offset_left = 80.0
+offset_top = 80.0
+offset_right = 144.0
+offset_bottom = 144.0
+texture = ExtResource("4_txt7i")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="map" type="TileMap" parent="."]
+tile_set = ExtResource("5_4hkna")
+format = 2
+layer_0/name = "map"
+layer_0/tile_data = PackedInt32Array(786445, 786432, 5, 720909, 786432, 5, 655373, 786432, 5, 786444, 786432, 5, 720908, 786432, 5, 655372, 786432, 5, 786443, 786432, 5, 720907, 786432, 5, 655371, 786432, 5, 786442, 786432, 5, 720906, 786432, 5, 655370, 786432, 5, 786441, 786432, 5, 720905, 786432, 5, 655369, 786432, 5, 786440, 786432, 5, 720904, 786432, 5, 655368, 786432, 5, 786439, 786432, 5, 720903, 786432, 5, 655367, 786432, 5, 786438, 786432, 5, 720902, 786432, 5, 655366, 786432, 5, 786437, 786432, 5, 720901, 786432, 5, 655365, 786432, 5, 786436, 786432, 5, 720900, 786432, 5, 655364, 786432, 5, 851982, 786432, 5, 786446, 786432, 5, 720910, 786432, 5, 655374, 786432, 5, 851981, 786432, 5, 851980, 786432, 5, 851979, 786432, 5, 851978, 786432, 5, 851977, 786432, 5, 851976, 786432, 5, 851975, 786432, 5, 851974, 786432, 5, 851973, 786432, 5, 851972, 786432, 5, 851971, 786432, 5, 786435, 786432, 5, 720899, 786432, 5, 655363, 786432, 5, 917521, 786432, 5, 851985, 786432, 5, 786449, 786432, 5, 720913, 786432, 5, 655377, 786432, 5, 917520, 786432, 5, 851984, 786432, 5, 786448, 786432, 5, 720912, 786432, 5, 655376, 786432, 5, 917519, 786432, 5, 851983, 786432, 5, 786447, 786432, 5, 720911, 786432, 5, 655375, 786432, 5, 917518, 786432, 5, 917517, 786432, 5, 917516, 786432, 5, 917515, 786432, 5, 917514, 786432, 5, 917513, 786432, 5, 917512, 786432, 5, 917511, 786432, 5, 917510, 786432, 5, 917509, 786432, 5, 917508, 786432, 5, 917507, 786432, 5, 917506, 786432, 5, 851970, 786432, 5, 786434, 786432, 5, 720898, 786432, 5, 655362, 786432, 5, 983059, 786432, 5, 917523, 786432, 5, 851987, 786432, 5, 786451, 786432, 5, 720915, 786432, 5, 655379, 786432, 5, 589843, 786432, 5, 983058, 786432, 5, 917522, 786432, 5, 851986, 786432, 5, 786450, 786432, 5, 720914, 786432, 5, 655378, 786432, 5, 589842, 786432, 5, 983057, 786432, 5, 589841, 786432, 5, 983056, 786432, 5, 589840, 786432, 5, 983055, 786432, 5, 589839, 786432, 5, 983054, 786432, 5, 589838, 786432, 5, 983053, 786432, 5, 589837, 786432, 5, 983052, 786432, 5, 589836, 786432, 5, 983051, 786432, 5, 589835, 786432, 5, 983050, 786432, 5, 589834, 786432, 5, 983049, 786432, 5, 589833, 786432, 5, 983048, 786432, 5, 589832, 786432, 5, 983047, 786432, 5, 589831, 786432, 5, 983046, 786432, 5, 589830, 786432, 5, 983045, 786432, 5, 589829, 786432, 5, 983044, 786432, 5, 589828, 786432, 5, 983043, 786432, 5, 589827, 786432, 5, 983042, 786432, 5, 589826, 786432, 5, 983041, 786432, 5, 917505, 786432, 5, 851969, 786432, 5, 786433, 786432, 5, 720897, 786432, 5, 655361, 786432, 5, 589825, 786432, 5, 1048596, 786432, 5, 983060, 786432, 5, 917524, 786432, 5, 851988, 786432, 5, 786452, 786432, 5, 720916, 786432, 5, 655380, 786432, 5, 589844, 786432, 5, 1048595, 786432, 5, 1048594, 786432, 5, 1048593, 786432, 5, 1048592, 786432, 5, 1048591, 786432, 5, 1048590, 786432, 5, 1048589, 786432, 5, 1048588, 786432, 5, 1048587, 786432, 5, 1048586, 786432, 5, 1048585, 786432, 5, 1048584, 786432, 5, 1048583, 786432, 5, 1048582, 786432, 5, 1048581, 786432, 5, 1048580, 786432, 5, 1048579, 786432, 5, 1048578, 786432, 5, 1048577, 786432, 5, 1048576, 786432, 5, 983040, 786432, 5, 917504, 786432, 5, 851968, 786432, 5, 786432, 786432, 5, 720896, 786432, 5, 655360, 786432, 5, 589824, 786432, 5, 1114111, 786432, 5, 1048575, 786432, 5, 983039, 786432, 5, 917503, 786432, 5, 851967, 786432, 5, 786431, 786432, 5, 720895, 786432, 5, 655359, 786432, 5)
+
+[node name="player" parent="." instance=ExtResource("6_tp2bq")]
+position = Vector2(25, 130)
+metadata/_edit_lock_ = true
+
+[node name="PlayerCamera" type="Camera2D" parent="player"]
+zoom = Vector2(0.8, 0.8)
+limit_left = 80
+limit_top = 80
+limit_right = 1008
+limit_bottom = 592
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+editor_draw_drag_margin = true
+script = ExtResource("7_l4csm")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.80896, 619.344)
+shape = SubResource("WorldBoundaryShape2D_l4csm")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

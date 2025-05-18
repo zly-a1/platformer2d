@@ -145,9 +145,6 @@ func get_next_state(state:State) ->State:
 				return State.RUN
 			
 		State.RUN:
-			var pl:=SoundManager.sfx.get_node("Walk") as AudioStreamPlayer
-			if pl and  not pl.playing:
-				SoundManager.play_sfx("Walk")
 			if not is_on_floor():
 				return State.FALL
 			if is_still:
@@ -176,22 +173,18 @@ func get_next_state(state:State) ->State:
 					return State.FALL
 			
 		State.HURT:
-			damage=false
 			if not animation_player.is_playing():
 				return State.IDLE
 		State.DYING:
 			pass
 		State.ATTACK:
 			if not animation_player.is_playing():
-				$Graphics/Hitter/CollisionShape2D.disabled=true
 				return State.IDLE
 		State.FLASH:
-			if not animation_player.is_playing() or is_on_wall():
-				
-				graphics.modulate=Color(1,1,1,1)
-				$Graphics/Hurter/CollisionShape2D.disabled=false
-				velocity.x=0
+			if not animation_player.is_playing():
 				return State.IDLE
+			if is_on_wall():
+				return State.WALL_JUMP
 			return State.FLASH
 	
 	if damage:
@@ -209,6 +202,13 @@ func change_state(from:State,to:State)->void:
 	print("[%s]:%s->%s"%[Engine.get_physics_frames(),State.keys()[from]if from!=-1 else "START",State.keys()[to]])
 	if from in GROUND_STATES and to in GROUND_STATES:
 		coyote.stop()
+	match from:
+		State.HURT:
+			damage=false
+		State.FLASH:
+			graphics.modulate=Color(1,1,1,1)
+			$Graphics/Hurter/CollisionShape2D.disabled=false
+			velocity.x=0
 	match to:
 		State.IDLE:
 			animation_player.play("idle")
@@ -235,7 +235,6 @@ func change_state(from:State,to:State)->void:
 			direction=-get_wall_normal().x as int
 			
 		State.HURT:
-			damage=true
 			animation_player.play("hurt")
 			SoundManager.play_sfx("Hurt")
 			GameProcesser.shake_camera(5.0)
